@@ -1,0 +1,38 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: calc(100vh - 100px); /* Ajuste conforme altura do seu header/footer */
+}
+
+mat-card {
+  width: 100%;
+  max-width: 450px;
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  margin-top: 15px;
+  text-align: center;
+}
+
+mat-card-actions a {
+    text-decoration: none;
+    color: #3f51b5; /* Cor primária do Angular Material por padrão */
+}
+
+mat-card-actions a:hover {
+    text-decoration: underline;
+}

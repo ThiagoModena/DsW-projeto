@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>
+  {{ isEditMode ? 'Editar Data do Agendamento' : 'Novo Agendamento' }}
+</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="form-container-dialog-padding">
+    <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" id="appointmentDialogForm">
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Data do Agendamento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Escolha uma data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="date?.hasError('required')">Data é obrigatória.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Hora (HH:MM)</mat-label>
+        <input matInput type="time" formControlName="time" placeholder="Ex: 14:30">
+        <mat-error *ngIf="time?.hasError('required')">Hora é obrigatória.</mat-error>
+        <mat-error *ngIf="time?.hasError('pattern')">Formato HH:MM.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>CPF do Cliente</mat-label>
+        <input matInput formControlName="client_cpf" placeholder="Digite o CPF do cliente" [readonly]="isEditMode">
+        <mat-error *ngIf="client_cpf?.hasError('required')">CPF do cliente é obrigatório.</mat-error>
+        <mat-error *ngIf="client_cpf?.hasError('pattern')">CPF inválido (11 dígitos).</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>CPF do Esteticista</mat-label>
+        <input matInput formControlName="esthetician_cpf" placeholder="Digite o CPF do esteticista" [readonly]="isEditMode">
+        <mat-error *ngIf="esthetician_cpf?.hasError('required')">CPF do esteticista é obrigatório.</mat-error>
+        <mat-error *ngIf="esthetician_cpf?.hasError('pattern')">CPF inválido (11 dígitos).</mat-error>
+      </mat-form-field>
+
+      <div *ngIf="submissionSuccess" class="mensagem-sucesso">
+        {{ isEditMode ? 'Agendamento atualizado' : 'Agendamento cadastrado' }} com sucesso!
+      </div>
+      <div *ngIf="submissionError" class="mensagem-erro">
+        <strong>Erro:</strong> {{ submissionError }}
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button type="button" (click)="onCancel()" *ngIf="isEditMode">
+    Cancelar
+  </button>
+  <button mat-raised-button color="primary" type="submit" form="appointmentDialogForm" [disabled]="appointmentForm.invalid || isSubmitting">
+    {{ isSubmitting ? 'Salvando...' : (isEditMode ? 'Atualizar Data' : 'Agendar') }}
+  </button>
+</mat-dialog-actions>

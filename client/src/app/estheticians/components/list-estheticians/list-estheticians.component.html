@@ -1,0 +1,55 @@
+<div class="lista-container" style="padding-top: 10px;">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" style="margin-bottom: 20px;">
+    <mat-form-field appearance="outline" style="flex-grow: 1;">
+      <mat-label>Buscar Esteticista por CPF</mat-label>
+      <input matInput [(ngModel)]="cpfBusca" placeholder="Digite o CPF" (keyup.enter)="buscarPorCpf()">
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="buscarPorCpf()" [disabled]="!cpfBusca" class="search-button">Buscar</button>
+    <button mat-stroked-button (click)="limparBuscaECarregarTodos()" *ngIf="exibindoResultadoBusca" class="clear-search-button">Mostrar Todos</button>
+  </div>
+
+  <div *ngIf="isLoading" style="text-align: center; padding: 20px;">Carregando...</div>
+  <div *ngIf="error && !isLoading" style="color: red; margin-bottom: 10px; text-align: center;">
+    {{ error }}
+    <button mat-stroked-button color="warn" (click)="exibindoResultadoBusca ? buscarPorCpf() : carregarEstheticians()" style="margin-left: 10px;">
+      Tentar Novamente
+    </button>
+  </div>
+  <div *ngIf="!isLoading && !error && estheticians.length === 0" style="text-align: center; padding: 20px;">
+    {{ cpfBusca && exibindoResultadoBusca ? 'Nenhum(a) esteticista encontrado(a) para o CPF informado.' : 'Nenhum(a) esteticista cadastrado(a).' }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && estheticians.length > 0" class="mat-elevation-z8">
+    <table mat-table [dataSource]="estheticians" class="full-width-table">
+      <ng-container matColumnDef="cpf">
+        <th mat-header-cell *matHeaderCellDef> CPF </th>
+        <td mat-cell *matCellDef="let item"> {{item.cpf}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nomeCompleto">
+        <th mat-header-cell *matHeaderCellDef> Nome Completo </th>
+        <td mat-cell *matCellDef="let item"> {{getNomeCompleto(item)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="specialty">
+        <th mat-header-cell *matHeaderCellDef> Especialidade </th>
+        <td mat-cell *matCellDef="let item"> {{item.specialty}} </td>
+        </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Ações </th>
+        <td mat-cell *matCellDef="let item" style="text-align: center;">
+          <!-- <button mat-icon-button color="primary" (click)="editarEsthetician(item)" aria-label="Editar esteticista">
+            <mat-icon>edit</mat-icon>
+          </button> -->
+          <button mat-icon-button color="warn" (click)="handleDeleteEsthetician(item)" aria-label="Deletar esteticista">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

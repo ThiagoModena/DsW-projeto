@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>
+  {{ isEditMode ? 'Editar Esteticista' : 'Cadastrar Novo(a) Esteticista' }}
+</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="form-container-dialog-padding">
+    <p *ngIf="!isEditMode">Preencha os dados para cadastrar um(a) novo(a) esteticista.</p>
+    <p *ngIf="isEditMode">Altere os dados do(a) esteticista abaixo.</p>
+
+    <form [formGroup]="estheticianForm" (ngSubmit)="onSubmit()" id="estheticianDialogForm">
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" placeholder="Ex: 00011122233" [readonly]="isEditMode">
+        <mat-error *ngIf="cpf?.hasError('required')">CPF é obrigatório.</mat-error>
+        <mat-error *ngIf="cpf?.hasError('pattern')">CPF deve conter 11 dígitos.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="first_name" placeholder="Ex: Maria">
+        <mat-error *ngIf="first_name?.hasError('required')">Nome é obrigatório.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Sobrenome</mat-label>
+        <input matInput formControlName="last_name" placeholder="Ex: Souza">
+        <mat-error *ngIf="last_name?.hasError('required')">Sobrenome é obrigatório.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Especialidade</mat-label>
+        <input matInput formControlName="specialty" placeholder="Ex: Cuidados com a Pele, Massagem">
+        <mat-error *ngIf="specialty?.hasError('required')">Especialidade é obrigatória.</mat-error>
+      </mat-form-field>
+
+      <div *ngIf="submissionSuccess" class="mensagem-sucesso" style="margin-top: 15px;">
+        {{ isEditMode ? 'Esteticista atualizado(a)' : 'Esteticista cadastrado(a)' }} com sucesso!
+      </div>
+      <div *ngIf="submissionError" class="mensagem-erro" style="margin-top: 15px;">
+        <strong>Erro:</strong> {{ submissionError }}
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button type="button" (click)="onCancel()" *ngIf="isEditMode">
+    Cancelar
+  </button>
+  <button mat-raised-button color="primary" type="submit" form="estheticianDialogForm" [disabled]="estheticianForm.invalid || isSubmitting">
+    {{ isSubmitting ? 'Salvando...' : (isEditMode ? 'Atualizar Esteticista' : 'Cadastrar Esteticista') }}
+  </button>
+</mat-dialog-actions>

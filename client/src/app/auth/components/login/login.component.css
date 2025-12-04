@@ -1,0 +1,33 @@
+/* src/app/auth/components/login/login.component.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: calc(100vh - 100px); /* Ajuste conforme altura do seu header/footer */
+}
+
+mat-card {
+  width: 100%;
+  max-width: 450px; /* Ou o tamanho que preferir */
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 15px;
+  text-align: center;
+}
+
+mat-card-actions a {
+    text-decoration: none;
+    color: #3f51b5; /* Cor primária do Angular Material por padrão ou sua cor de tema */
+}
+
+mat-card-actions a:hover {
+    text-decoration: underline;
+}

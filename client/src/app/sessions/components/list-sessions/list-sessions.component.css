@@ -1,0 +1,86 @@
+.search-button,
+.clear-search-button {
+  margin-left: 10px; /* Ou o valor que desejar (ex: 0.5em, 8px) */
+}
+
+/* src/app/clients/components/list-clients/list-clients.component.css */
+
+/* Estilo geral para a tabela e suas células para garantir um padding base */
+.full-width-table {
+  width: 100%;
+}
+
+/* Cabeçalhos e células da tabela */
+.full-width-table th.mat-header-cell,
+.full-width-table td.mat-cell {
+  padding: 8px 12px; /* Ajuste o padding (vertical horizontal) conforme necessário */
+  border-bottom: 1px solid rgba(0,0,0,.12); /* Linha separadora sutil */
+  box-sizing: border-box; /* Garante que padding e border não aumentem a largura definida */
+}
+
+/* Alinhamento padrão para cabeçalhos e células */
+.full-width-table th.mat-header-cell {
+  text-align: left;
+  font-weight: bold; /* Deixa o cabeçalho em negrito */
+}
+
+.full-width-table td.mat-cell {
+  text-align: left;
+}
+
+/* --- Definição de Larguras Específicas para Colunas --- */
+/* O Angular Material adiciona classes como .mat-column-<nomeDaColunaDefinidaNoMatColumnDef> */
+
+/* CPF - pode ter uma largura mais fixa */
+.mat-column-cpf {
+  width: 130px; /* Exemplo de largura fixa */
+  /* ou flex: 0 0 130px; para controle mais preciso com flexbox */
+}
+
+/* Nome Completo - pode ser mais flexível ou ter uma largura maior */
+.mat-column-nomeCompleto {
+  width: 25%; /* Exemplo de largura percentual */
+  min-width: 200px; /* Garante uma largura mínima */
+}
+
+/* CEP - largura fixa */
+.mat-column-cep {
+  width: 100px;
+}
+
+/* Email - pode ser mais flexível */
+.mat-column-email {
+  width: 25%;
+  min-width: 220px;
+}
+
+/* Telefone - largura mais controlada */
+.mat-column-phone {
+  width: 140px;
+}
+
+/* Número - largura pequena */
+.mat-column-number {
+  width: 80px;
+  text-align: center; /* Exemplo de centralizar números */
+}
+.full-width-table th.mat-column-number { /* Para manter o header alinhado com a célula */
+  text-align: center;
+}
+
+
+/* Como nos conheceu - pode ter um pouco mais de espaço ou ser flexível */
+.mat-column-how_found_us {
+  width: 15%;
+  min-width: 150px;
+}
+
+/* Coluna de Ações - geralmente uma largura fixa para os botões */
+.mat-column-actions {
+  width: 130px; /* Ajuste conforme o tamanho dos seus botões/ícones */
+  text-align: right; /* Alinha os botões à direita */
+}
+.full-width-table th.mat-column-actions { /* Para manter o header alinhado com a célula */
+  text-align: right;
+}
+
